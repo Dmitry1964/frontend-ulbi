@@ -1,18 +1,30 @@
 import { Routes, Route, Link } from "react-router-dom";
-import './index.scss';
+import './styles/index.scss';
 import { MainPageLazy } from "./pages/MainPage/MainPage.async";
 import { AboutPageLazy } from "./pages/AboutPage/AboutPage.async";
 import { Suspense } from "react";
+import { useTheme } from "./theme/useTheme";
+
+
+export enum Theme {
+    LIGHT = 'light',
+    DARK = 'dark',
+}
+
 
 const App = () => {
+
+    const {theme, toggleTheme} = useTheme();
+
     return (
-        <div className="app">
+        <div className={`app ${theme}`}>
             <Link to={'/'}>
                 Главная
             </Link>
             <Link to={'/about'}>
                 О нас
             </Link>
+            <button onClick = {toggleTheme}>Сменить тему</button>
 
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
